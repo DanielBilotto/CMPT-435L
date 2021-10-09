@@ -33,7 +33,7 @@ public class MergeSort
 		
 		for (int k = 0; k < items.length; k++)
 		{
-			if (j >= right.length || (i < left.length && left[i].compareToIgnoreCase(right[j]) < 1))
+			if (j >= right.length || (i < left.length && left[i].compareToIgnoreCase(right[j]) < 0))
 			{
 				items[k] = left[i];
 				i++;
