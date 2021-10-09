@@ -22,7 +22,7 @@ public class QuickSort
 		
 		for (int j = begin; j < end; j++)
 		{
-			if (array[j].compareTo(pivot) < 1)
+			if (array[j].compareTo(pivot) < 0)
 			{
 				i++;
 				String swap = array[i];

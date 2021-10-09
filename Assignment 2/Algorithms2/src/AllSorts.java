@@ -65,7 +65,7 @@ public class AllSorts
 		  for (int j = smallPos + 1; j < n; j++)
 		  {
 			  compare++;
-			  if (items[j].compareTo(items[smallPos]) < 1)
+			  if (items[j].compareTo(items[smallPos]) < 0)
 			  {
 				  smallPos = j;
 			  }
@@ -86,7 +86,7 @@ public class AllSorts
 	  {
 		  String key = items[i];
 		  int j = i - 1;
-		  while ((j > -1) && (items[j].compareTo(key) > 1))
+		  while ((j > -1) && (items[j].compareTo(key) > 0))
 		  {
 			  compare++;
 			  items[j + 1] = items [j];
