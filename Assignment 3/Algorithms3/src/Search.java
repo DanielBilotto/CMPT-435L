@@ -5,7 +5,8 @@ public class Search {
 	// Create a new keyboard Scanner object.
 	  static Scanner keyboard = new Scanner(System.in);
 
-	public static void main(String[] args) 
+	  
+	  public static void main(String[] args) 
 	{
 		String fileName = null;
 	    String line = null;
@@ -13,6 +14,9 @@ public class Search {
 	    String[] list = new String[size];
 		String[] ft = new String[42];
 		float bcompare = 0;
+		float hcompare = 0;
+		
+		HashMap hMap = new HashMap();
 		
 		try
 	    { 
@@ -48,12 +52,27 @@ public class Search {
 		QuickSort.sort(list, 0, list.length -1);
 
 		System.out.println("linear search: " + linear(list, ft));
-		for(int j = 0; j < 42; j++)
+		for (int j = 0; j < 42; j++)
 		{
 			binary(list, ft, j);
 			bcompare += binary(list, ft, j);
 		}
 		System.out.println("binary search: " + bcompare/42);
+        
+        
+        
+        for (int w = 0; w < size; w++)
+		{
+			hMap.add(list[w]);
+		}
+        
+        for (int p = 0; p < 42; p++)
+        {
+        	String want = list[p];
+        	hcompare += hMap.lookup(want);
+        }
+        
+        System.out.println("Hash Map: " + hcompare);
 
 
 	}//main
