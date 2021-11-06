@@ -43,7 +43,7 @@ public class Search {
 	    
 	    //this sends back a message if something goes wrong in importing the text into the array from magic items
 		
-		for (int k = 0; k < ft.length; k++)
+		for (int k = 0; k < 42; k++)
 		{
 			line = list[k];
 	    	ft[k] = line;
@@ -52,12 +52,12 @@ public class Search {
 		QuickSort.sort(list, 0, list.length -1);
 
 		System.out.println("linear search: " + linear(list, ft));
-		for (int j = 0; j < ft.length; j++)
+		for (int j = 0; j < 42; j++)
 		{
 			binary(list, ft, j);
 			bcompare += binary(list, ft, j);
 		}
-		System.out.println("binary search: " + bcompare/ft.length);
+		System.out.println("binary search: " + bcompare/42);
         
         
         
@@ -66,7 +66,7 @@ public class Search {
 			hMap.add(list[w]);
 		}
         
-        for (int p = 0; p < ft.length; p++)
+        for (int p = 0; p < 42; p++)
         {
         	String want = list[p];
         	hcompare += hMap.lookup(want);
@@ -89,7 +89,7 @@ public class Search {
 	      }
 		
 		
-		for (int k = 0; k < ft.length; k++)
+		for (int k = 0; k < 42; k++)
 		{
 			NodeBilotto curr = que.head;
 			want = ft[k];
@@ -100,7 +100,7 @@ public class Search {
 			}
 		}//for
 		
-		return (compare/ft.length);
+		return (compare/42);
 	}//linear 
 	
 	public static float binary(String[] items, String[] ft, int times)
