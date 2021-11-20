@@ -20,15 +20,18 @@ public class AdjList
 		list[source].addFirst(dest);
 	}
 	
-	public void printGraph(){
-		 for (int i = 0; i < ver ; i++) {
-		 if(list[i].size()>0) {
-		 System.out.print("Vertex " + i + " is connected to: ");
-		 for (int j = 0; j < list[i].size(); j++) {
-		 System.out.print(list[i].get(j) + " ");
+	public void print(){
+		 for (int i = 0; i < ver ; i++) 
+		 {
+			 if(list[i].size()>0) 
+			 {
+				 System.out.print("Vertex " + i + " is connected to: ");
+				 for (int j = 0; j < list[i].size(); j++) 
+				 {
+					 System.out.print(list[i].get(j) + " ");
+				 }
+				 System.out.println();
+			 }
 		 }
-		 System.out.println();
-		 }
-		 }
-		 }
+	}
 }

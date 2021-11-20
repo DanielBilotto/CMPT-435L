@@ -40,14 +40,14 @@ public class BST
 			if (item.getKey().compareToIgnoreCase(curr.getKey()) < 0)
 			{
 				curr = curr.left;
-				System.out.println("1"); 
+				System.out.println("L"); 
 			}
 			
 			
 			else 
 			{
 				curr = curr.right;
-				System.out.println("2"); 
+				System.out.println("R"); 
 			}
 				
 		}//while
@@ -57,17 +57,16 @@ public class BST
 		if (trail == null)
 		{
 			tree.root = item;
-			System.out.println("3"); 
 		}
-		else if (item.getKey().compareTo(trail.getKey()) < 0)
+		else if (item.getKey().compareToIgnoreCase(trail.getKey()) < 0)
 		{
 			trail.left = item;
-			System.out.println("4"); 
+			System.out.println("L"); 
 		}
 		else
 		{
 			trail.right = item;
-			System.out.println("5"); 
+			System.out.println("R"); 
 		}
 			
 			

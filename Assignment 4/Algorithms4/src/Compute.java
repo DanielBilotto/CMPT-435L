@@ -5,7 +5,7 @@ public class Compute {
 	// Create a new keyboard Scanner object.
 	  static Scanner keyboard = new Scanner(System.in);
 
-	@SuppressWarnings("null")
+
 	public static void main(String[] args) 
 	{
 		/*
@@ -96,34 +96,49 @@ public class Compute {
 	    */
 	    
 		
-		GraphMatrix g = new GraphMatrix(7);
-		g.addEdge(0, 1);
-		g.addEdge(0, 4);
-		g.addEdge(0, 5);
-		g.addEdge(1, 2);
-		g.addEdge(1, 4);
-		g.addEdge(1, 5);
-		g.addEdge(2, 3);
-		g.addEdge(3, 4);
-		g.addEdge(4, 5);
-		g.addEdge(4, 6);
-		g.addEdge(5, 6);
+		GraphMatrix matrix = new GraphMatrix(7);
+		AdjList adj = new AdjList(7);
+		adj.addEdge(0, 1);
+		adj.addEdge(0, 4);
+		adj.addEdge(0, 5);
+		adj.addEdge(1, 2);
+		adj.addEdge(1, 4);
+		adj.addEdge(1, 5);
+		adj.addEdge(2, 3);
+		adj.addEdge(3, 4);
+		adj.addEdge(4, 5);
+		adj.addEdge(4, 6);
+		adj.addEdge(5, 6);
 		
+		matrix.addEdge(0, 1);
+		matrix.addEdge(0, 4);
+		matrix.addEdge(0, 5);
+		matrix.addEdge(1, 2);
+		matrix.addEdge(1, 4);
+		matrix.addEdge(1, 5);
+		matrix.addEdge(2, 3);
+		matrix.addEdge(3, 4);
+		matrix.addEdge(4, 5);
+		matrix.addEdge(4, 6);
+		matrix.addEdge(5, 6);
 		
-		g.printAdjacencyList();
+		adj.print();
+		matrix.print();
+		searchTree();
 		
-	    
 	    
 
 	}//main
 	
 	
-	public void searchTree()
+	public static void searchTree()
     {
 		String fileName = null;
 	    String line = null;
 	    BST tree = new BST();
 	    int size = 666;
+	    int size2 = 42;
+	    String fileline = null;
 	        
 	    try
 	    { 
@@ -131,7 +146,7 @@ public class Compute {
 	    	File theFile = new File(fileName);
 	    	Scanner input = new Scanner(theFile);
 	                 
-	    for (int i = 0; i<10; i++)
+	    for (int i = 0; i<size; i++)
 	      {
 	    	NodeTree item = new NodeTree();
 	    	line = input.nextLine();
@@ -141,19 +156,33 @@ public class Compute {
 	    	
 	    	
 	      }//for
+	    
+	    
 	    //tree.printTree();
     	//System.out.println("______________________________________________");
 	    
+	    Scanner fileinput = new Scanner(new File("src/text.txt"));
+	    for (int k = 0; k < size2; k++)
+	    {
+	    	fileline = fileinput.nextLine();
+	    	tree.search(fileline);
+	    }
+	    
 	    //tree.search("");
+	    
 	    
 	      input.close();
 	      keyboard.close();
 	    }//try
 	    
+	    
+	    
 	    catch(Exception ex)
 	    {
 	      System.out.println("Oops, something went wrong!");
 	    }//catch
+	    
+	    
     }
 
 }//Compute
