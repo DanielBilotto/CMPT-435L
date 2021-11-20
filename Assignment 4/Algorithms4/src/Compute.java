@@ -5,41 +5,84 @@ public class Compute {
 	// Create a new keyboard Scanner object.
 	  static Scanner keyboard = new Scanner(System.in);
 
+	@SuppressWarnings("null")
 	public static void main(String[] args) 
 	{
-		int edge1 = 0;
-		int edge2 = 0;
+		/*
 		int graphSize = 375;
-		String graph;
 		String fileName = null;
-	    String line = null;
+	   
 	    try
 	    { 
 	    	fileName = "graphs.txt";
+	    	String gline = null;
 	    	File theFile = new File(fileName);
 	    	Scanner ginput = new Scanner(theFile);
-	    	while(ginput.hasNext())
-	        {
-	      	
-	      	line = ginput.nextLine();
-	         
-	      	if (line.contains("new graph"))
-	      		
-	     
-	      	if (line.contains("add vertex"))
-	     
-	      	if (line.contains("add edge"))
-	      	{
-	      		String[] test;
-	      		test = line.replaceAll("[^\\d-]", "").split("-");
-	      		edge1 = Integer.parseInt(test[0]);
-	      		edge2 = Integer.parseInt(test[1]);
-	      	}
-	      	
 	    	
-	      	
-	        }//while
-	    	
+			for (int i = 0; i < graphSize; i++)
+			{
+				if (gline.contains("--"))
+				{
+					//donothing
+				}
+				
+				else if (gline.contains("new graph"))
+				{
+					int vernum = 0;
+					int firstver = 0;
+					boolean first = true;
+					int vcount = 0;
+					int edge1 = 0;
+					int edge2 = 0;
+					
+					i++;
+					
+					
+					while (gline.contains("add vertex"))
+					{
+						String vid = gline.replaceAll("[^\\d-]", "");
+						vernum = Integer.parseInt(vid);
+					
+					
+					if (first)
+					{
+						firstver = vernum;
+						first = false;
+					}
+					
+					
+					vcount++;
+					i++;
+					}//while
+					
+					if (firstver == 1)
+					{
+						vcount++;
+					}//if
+					
+					GraphMatrix g = new GraphMatrix(vcount);
+					
+					while (gline.contains("add edge"))
+					{
+						String[] vstring;
+						vstring = gline.replaceAll("[^\\d-]", "").split("-");
+						
+						edge1 = Integer.parseInt(vstring[0]);
+						edge2 = Integer.parseInt(vstring[1]);
+						
+						g.addEdge(edge1 - 1, edge2 - 1);
+						
+						if(i < graphSize - 1) {
+							i++;
+						} else {
+							break;
+						}
+						
+					}//while
+				}
+			}
+			
+			
 		      
 	    	ginput.close();
 	    	keyboard.close();
@@ -49,6 +92,28 @@ public class Compute {
 	    {
 	    	System.out.println("Oops, something went wrong!");
 	    }//catch
+	    
+	    */
+	    
+		
+		GraphMatrix g = new GraphMatrix(7);
+		g.addEdge(0, 1);
+		g.addEdge(0, 4);
+		g.addEdge(0, 5);
+		g.addEdge(1, 2);
+		g.addEdge(1, 4);
+		g.addEdge(1, 5);
+		g.addEdge(2, 3);
+		g.addEdge(3, 4);
+		g.addEdge(4, 5);
+		g.addEdge(4, 6);
+		g.addEdge(5, 6);
+		
+		
+		g.printAdjacencyList();
+		
+	    
+	    
 
 	}//main
 	

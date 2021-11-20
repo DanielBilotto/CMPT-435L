@@ -1,27 +1,31 @@
+import java.util.ArrayList;
 public class GraphMatrix 
 {
-	private boolean matrix[][];
-	private int vertex;
+	ArrayList<ArrayList<Integer>> adj;
+    int ver;
 	
 	//Initialize
 	
-	public GraphMatrix(int incoming)
+	public GraphMatrix(int vertex)
 	{
-		vertex = incoming;
-		matrix = new boolean[incoming][incoming];
+		ver = vertex;
+		adj = new ArrayList<ArrayList<Integer>>(ver);
+        for (int i = 0; i < ver; i++)
+            adj.add(new ArrayList<Integer>());
 	}
 	
 	public void addEdge(int source, int dest)
 	{
-		matrix[source][dest] = true;
-		matrix[dest][source] = true;
+		adj.get(source).add(dest);
+        adj.get(dest).add(source);
 	}
 	
+	/*
 	public void print()
 	{
 		System.out.println("Graph: (Adjacency Matrix)");
         for (int i = 0; i < vertex; i++) {
-            for (int j = 0; j <vertex ; j++) {
+            for (int j = 0; j < vertex; j++) {
                 System.out.print(matrix[i][j]+ " ");
             }
             System.out.println();
@@ -36,4 +40,16 @@ public class GraphMatrix
             System.out.println();
         }	
 	}
+	*/
+	
+	public void printAdjacencyList()
+    {
+        for (int i = 0; i < adj.size(); i++) {
+            System.out.println("Adjacency list of " + i);
+            for (int j = 0; j < adj.get(i).size(); j++) {
+                System.out.print(adj.get(i).get(j) + " ");
+            }
+            System.out.println();
+        }
+    }
 }

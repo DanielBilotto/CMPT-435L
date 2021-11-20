@@ -1,13 +1,16 @@
+import java.util.ArrayList;
 
 public class NodeBilotto 
 {
-	private String myData;
-	private NodeBilotto myNext;
+	public String myData;
+	public NodeBilotto myNext;
+	public NodeBilotto prev;
 	
 	public NodeBilotto ()
 	{
 		myData = null;
 		myNext = null;
+		prev = null;
 	}//NodeBilotto
 	
 	public NodeBilotto (String newData)
@@ -35,6 +38,13 @@ public class NodeBilotto
 	{
 		myNext = newNext;
 	}//setNext
+	
+	//graph stuff
+	
+	public int num;
+	public boolean isProccessed;
+	public boolean needsProccessed;
+	public ArrayList<NodeBilotto> neighbors = new ArrayList<NodeBilotto>();
 
 	
 }//node
