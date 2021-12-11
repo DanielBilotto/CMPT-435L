@@ -1,30 +1,30 @@
 import java.util.ArrayList;
 
 public class SSP {
-	public void initSS(Graph graph, NodeBilotto source, int verCount)
+	public void initSS(QueueBilotto graph, NodeBilotto source, int verCount)
 	{
 		for (int i = 1; i < verCount; i++)
 		{
-			NodeBilotto vertex = graph.vert.get(i); //come back to this
+			NodeBilotto vertex = graph.search(i); //come back to this
 			vertex.distance = Integer.MAX_VALUE;
 			vertex.prevVertex = null;
 			//source.distance = 0;
 		}
 	}//init
 	
-	public boolean bellman(Graph graph, NodeBilotto sour, int verCount, int edgeCount)
+	public void bellman(QueueBilotto graph, NodeBilotto sour, int verCount, int edgeCount)
 	{
 		this.initSS(graph, sour, verCount);
 		
 		NodeBilotto source = sour;
 		NodeBilotto destination = sour;
 		
-		/*
+		
 		for (int i = 0; i < (verCount - 1); i++)
 		{
 			for (int k = 1; k < verCount; k++)
 			{	
-				source = graph.vert.get(i + 1);//come back to this
+				source = graph.search(k);//come back to this
 				System.out.println(source.getData());
 				
 				for (int j = 0; j < source.edge.size(); j++)
@@ -36,7 +36,8 @@ public class SSP {
 				}
 			}
 		}
-		*/
+		
+		/*
 		for (int i = 0; i < (verCount - 1); i++)
 		{
 			for (int j = 0; j < source.edge.size(); j++)
@@ -60,7 +61,7 @@ public class SSP {
 			}
 		}
 		return true;
-		
+		*/
 		
 		
 		
@@ -73,26 +74,29 @@ public class SSP {
 		
 	}
 	
-	public void relax(Graph graph, NodeBilotto start, NodeBilotto end, int weight)
+	public boolean relax(QueueBilotto graph, NodeBilotto start, NodeBilotto end, int weight)
 	{
 		
 		if (end.distance > start.distance + weight)
 		{
 			end.distance = start.distance + weight;
 			end.prevVertex = start;
+			return false;
 			
 		}
+		
+		return true;
 	}
 	
 	
-	public void print (Graph graph, NodeBilotto sourceVert, int verCount)
+	public void print (QueueBilotto graph, NodeBilotto sourceVert, int verCount)
 	{
 		NodeBilotto dest = null;
 		int cost = 0;
 		
-		for (int g = (sourceVert.getData() + 1); g < verCount; g++)
+		for (int g = (sourceVert.ver + 1); g < verCount; g++)
 		{
-			dest = graph.vert.get(g);
+			dest = graph.search(g);
 			cost = dest.distance;
 			System.out.print(sourceVert.getData() + " -> " + (g) + " cost is " + cost + "; path is " + sourceVert.getData());
 			

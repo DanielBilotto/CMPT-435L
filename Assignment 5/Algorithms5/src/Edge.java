@@ -6,11 +6,10 @@ public class Edge {
 	int myWeight;
 	
 	
-	public Edge()
+	public Edge(NodeBilotto dest, int weight)
 	{
-		mySource = null;
-		myDest = null;
-		myWeight = 0;
+		myDest = dest;
+		myWeight = weight;
 	}
 	
 	 
