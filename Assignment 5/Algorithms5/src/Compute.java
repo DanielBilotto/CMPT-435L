@@ -43,7 +43,7 @@ public class Compute {
 	    	  
 	    	  if (line[0].equalsIgnoreCase("new"))
 	    	  {
-	    		  //System.out.println(Arrays.toString(line));
+	    		  System.out.println(Arrays.toString(line));
 	    		  graph = new QueueBilotto();
 	    		  verCount = 0;
 	    		  edgeCount = 0;
@@ -55,7 +55,7 @@ public class Compute {
 	    	  {
 	    		  if (line[1].substring(0,1).equalsIgnoreCase("v"))
 	    		  {
-	    			  //System.out.println(Arrays.toString(line));
+	    			  System.out.println(Arrays.toString(line));
 	    			  NodeBilotto vert = new NodeBilotto();
 	    			  num = Integer.parseInt(line[2]);
 	    			  vert.ver = num;
@@ -64,18 +64,18 @@ public class Compute {
 	    		  }
 	    		  else
 	    		  {
-	    			  //System.out.println(Arrays.toString(line));
+	    			  System.out.println(Arrays.toString(line));
 	    			  
 	    			  source = Integer.parseInt(line[2]);
 	    			  dest = Integer.parseInt(line[4]);
 	    			  weight = Integer.parseInt(line[5]);
 	    			  
 
-	    			  NodeBilotto srcNode = graph.search(source);
-	    			  NodeBilotto destNode = graph.search(dest);
+	    			  //NodeBilotto srcNode = graph.search(source);
+	    			  //NodeBilotto destNode = graph.search(dest);
 	    			  
 	    			  
-	    			  Edge edge = new Edge(destNode, weight);
+	    			  //Edge edge = new Edge(destNode, weight);
 	    			  
 	    			  //srcNode.edge.add(edge);
 	    			  edgeCount++;

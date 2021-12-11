@@ -8,7 +8,7 @@ public class SSP {
 			NodeBilotto vertex = graph.search(i); //come back to this
 			vertex.distance = Integer.MAX_VALUE;
 			vertex.prevVertex = null;
-			//source.distance = 0;
+			source.distance = 0;
 		}
 	}//init
 	
@@ -37,40 +37,6 @@ public class SSP {
 			}
 		}
 		
-		/*
-		for (int i = 0; i < (verCount - 1); i++)
-		{
-			for (int j = 0; j < source.edge.size(); j++)
-			{
-				int weight = source.edge.get(j).getWeight();
-				//System.out.println(weight);
-				relax(graph, source, destination, weight);
-				
-			}
-			
-			for (int k = 0; k < source.edge.size(); k++)
-			{
-				int weight = source.edge.get(k).getWeight();
-				if (destination.distance > source.distance + weight)
-				{
-					
-					System.out.println(destination.distance);
-					System.out.println(source.distance);
-					return false;
-				}
-			}
-		}
-		return true;
-		*/
-		
-		
-		
-		
-		
-		//System.out.println(verCount);
-		//System.out.println(edgeCount);
-		//System.out.println(sour.edge.get(0).getSource().getData());
-		//System.out.println(sour.edge.get(0).getDest().getData());
 		
 	}
 	

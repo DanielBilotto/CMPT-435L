@@ -1,0 +1,733 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% CMPT 435
+% Lab Four
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from: http://www.LaTeXTemplates.com
+% Original author: % Frits Wenneker (http://www.howtotex.com)
+% License: CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% Modified by Daniel Bilotto
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[letterpaper, 10pt]{article} 
+
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{graphicx}
+\usepackage[lined,linesnumbered,commentsnumbered]{algorithm2e}
+\usepackage{listings}
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\usepackage{lastpage}
+\usepackage{url}
+
+\usepackage{xcolor}
+
+
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{page \thepage\ of \pageref{LastPage}} % Page numbering for center footer
+\fancyfoot[R]{}
+
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\lstdefinestyle{mystyle}{
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=false,                  
+  tabsize=2
+}
+
+%"mystyle" code listing set
+\lstset{style=mystyle}
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	
+   \normalfont \normalsize 
+   \textsc{CMPT 435 - Fall 2021 - Daniel Bilotto} \\[10pt] % Header stuff.
+   \horrule{0.5pt} \\[0.25cm] 	% Top horizontal rule
+   \huge Assignment Four -- \LaTeX ~Sorts \\     	    % Assignment title
+   \horrule{0.5pt} \\[0.25cm] 	% Bottom horizontal rule
+}
+
+\author{Daniel Bilotto \\ \normalsize danielbilotto1@marist.edu}
+
+\date{\normalsize\today} 	% Today's date.
+
+
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%   CONTENT SECTION
+%----------------------------------------------------------------------------------------
+
+% - -- -  - -- -  - -- -  -
+
+\section{Compute Class}
+He is the main class, and I should probably mention it here that it does not work. But nonethe less I will go through it. Unlike last project I go the read a file to work (yay!) but this time I can't seem to get the algorithm right. See I have read the file in and everything works right up until I try to add the edge to the list. but beyond that everything seems to be working. I have a linkedlist/graph that contains my nodes/vertices and each node has a array list of edges. After this though we have the spice stuff which is also not working. 
+
+Some things to note is that while I'm only reading in one graph, the code is use able to add more graphs in I just did it that way to test the code when working.
+
+\begin{lstlisting}[language = java]
+import java.io.File;
+import java.util.Scanner;
+import java.util.ArrayList;
+//import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
+public class Compute {
+	// Create a new keyboard Scanner object.
+	  static Scanner keyboard = new Scanner(System.in);
+
+
+	public static void main(String[] args) 
+	{
+		String fileName = null;
+	    String[] line = null;
+	    String[] line2 = null;
+	    int num;
+	    int source;
+	    int dest;
+	    int weight;
+	    QueueBilotto graph = new QueueBilotto();
+	    int verCount = 0;
+	    int edgeCount = 0;
+	    NodeBilotto edgeNode = new NodeBilotto();
+	    SSP path = new SSP();
+
+	   
+	    try
+	    { 
+	      fileName = "test.txt";
+	     
+	      File theFile = new File(fileName);   
+	      
+	      Scanner input = new Scanner(theFile);
+	      
+	      //this will read the file together with the code below         
+	      
+	      while(input.hasNext())
+	      {
+	    	  line = input.nextLine().replaceAll("  ", " ").split(" ");
+	    	  //System.out.println(Arrays.toString(line));
+	    	  
+	    	  if (line[0].equalsIgnoreCase("new"))
+	    	  {
+	    		  //System.out.println(Arrays.toString(line));
+	    		  graph = new QueueBilotto();
+	    		  verCount = 0;
+	    		  edgeCount = 0;
+	    		  num = 0;
+	    		  
+	    	  }
+	    	  
+	    	  else if (line[0].equalsIgnoreCase("add"))
+	    	  {
+	    		  if (line[1].substring(0,1).equalsIgnoreCase("v"))
+	    		  {
+	    			  //System.out.println(Arrays.toString(line));
+	    			  NodeBilotto vert = new NodeBilotto();
+	    			  num = Integer.parseInt(line[2]);
+	    			  vert.ver = num;
+	    			  graph.enqueue(vert);
+	    			  verCount++;
+	    		  }
+	    		  else
+	    		  {
+	    			  //System.out.println(Arrays.toString(line));
+	    			  
+	    			  source = Integer.parseInt(line[2]);
+	    			  dest = Integer.parseInt(line[4]);
+	    			  weight = Integer.parseInt(line[5]);
+	    			  
+
+	    			  NodeBilotto srcNode = graph.search(source);
+	    			  NodeBilotto destNode = graph.search(dest);
+	    			  
+	    			  
+	    			  Edge edge = new Edge(destNode, weight);
+	    			  
+	    			  //srcNode.edge.add(edge);
+	    			  edgeCount++;
+	    			  
+	    		  }
+	    	  } 
+	    	  
+	    	  
+	    	  
+	      }//while
+	     
+	      
+	   
+	      input.close();
+	      keyboard.close();
+	    }//try
+	    
+	    catch(Exception ex)
+	    {
+	      System.out.println("Oops, something went wrong!");
+	    }//catch
+	    
+	    //this sends back a message if something goes wrong in importing the text into the array from magic items
+	    
+	  
+	    /*
+	    try
+	    { 
+	      fileName = "spice.txt";
+	     
+	      File theFile = new File(fileName);   
+	      
+	      Scanner input = new Scanner(theFile);
+	      
+	      //this will read the file together with the code below         
+	      
+	      while(input.hasNext())
+	      {
+	    	  line = input.nextLine().replaceAll("\\s+", " ").split(" ");
+	    	  System.out.println(Arrays.toString(line));
+	    	  int price;
+	    	  int qty;
+	    	  
+	    	  if (line[0].equalsIgnoreCase("spice"))
+	    	  {
+	    		  ArrayList<Spice> spices = new ArrayList<Spice>();
+	    		  Spice spice = new Spice();
+	    		  spice.name = line[3];
+	    		  price = Integer.parseInt(line[6]);
+	    		  qty = Integer.parseInt(line[9]);
+	    		  spice.price = price;
+	    		  spice.qty = qty;
+	    		  spice.unitPrice.add(price/qty);
+	    		  spices.add(spice);
+	    		  selectSort(spice.unitPrice);
+	    		  
+	    	  }
+	    	  
+	    	  else if (line[0].equalsIgnoreCase("knapsack"))
+	    	  {
+	    		 int scoops = 0;
+	    		 int capacity = Integer.parseInt(line[3]);
+	    		 
+	    		 if (capacity > 0)
+	    		 {
+	    			 
+	    		 }
+	    		  
+	    	  }
+	    	  
+	    	  
+	      }//while
+	     
+	      
+	   
+	      input.close();
+	      keyboard.close();
+	    }//try
+	    
+	    catch(Exception ex)
+	    {
+	      System.out.println("Oops, something went wrong!");
+	    }//catch
+	    
+	    
+	    
+	    */
+	    
+	    //Prints out the graph!! (well at least the vertices!)
+	    
+	    
+	    /*
+	    for (int i = 0; i < edgeNode.edge.size(); i++)
+	    {
+	    	System.out.println(edgeNode.edge.get(i).getSource().getData());
+	    	System.out.println(edgeNode.edge.get(i).getDest().getData());
+	    	System.out.println(edgeNode.edge.get(i).getWeight());
+	    }
+	    //Prints out the edges
+	    */
+	    
+	    /*
+	    path.bellman(graph, edgeNode, verCount, edgeCount);
+	    path.print(graph, graph.head, verCount);
+	    System.out.println();
+	    */
+	    
+	    
+	  }//main
+	
+	
+	public static void selectSort(ArrayList<Integer> items)
+	  {
+		  for (int i = 0; i < items.size(); i++)
+		  {
+			  int smallPos = i;
+			  for (int j = i; j < items.size(); j++)
+			  {
+				  if (items.get(j) < items.get(smallPos))
+				  {
+					  smallPos = j;
+				  }
+			  }
+			  int swap = items.get(smallPos);
+			  items.set(smallPos, items.get(i));
+			  items.set(i, swap);
+		  }
+
+	  }//SS
+
+}//Compute
+
+
+
+\end{lstlisting}
+
+
+\section{Proof of multiple graphs!}
+He is proof that it can read in multiple graphs.
+
+\begin{lstlisting}[language = java]
+import java.io.File;
+import java.util.Scanner;
+import java.util.ArrayList;
+//import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
+public class Compute {
+	// Create a new keyboard Scanner object.
+	  static Scanner keyboard = new Scanner(System.in);
+
+
+	public static void main(String[] args) 
+	{
+		String fileName = null;
+	    String[] line = null;
+	    String[] line2 = null;
+	    int num;
+	    int source;
+	    int dest;
+	    int weight;
+	    QueueBilotto graph = new QueueBilotto();
+	    int verCount = 0;
+	    int edgeCount = 0;
+	    NodeBilotto edgeNode = new NodeBilotto();
+	    SSP path = new SSP();
+
+	   
+	    try
+	    { 
+	      fileName = "graphs.txt";
+	     
+	      File theFile = new File(fileName);   
+	      
+	      Scanner input = new Scanner(theFile);
+	      
+	      //this will read the file together with the code below         
+	      
+	      while(input.hasNext())
+	      {
+	    	  line = input.nextLine().replaceAll("  ", " ").split(" ");
+	    	  //System.out.println(Arrays.toString(line));
+	    	  
+	    	  if (line[0].equalsIgnoreCase("new"))
+	    	  {
+	    		  System.out.println(Arrays.toString(line));
+	    		  graph = new QueueBilotto();
+	    		  verCount = 0;
+	    		  edgeCount = 0;
+	    		  num = 0;
+	    		  
+	    	  }
+	    	  
+	    	  else if (line[0].equalsIgnoreCase("add"))
+	    	  {
+	    		  if (line[1].substring(0,1).equalsIgnoreCase("v"))
+	    		  {
+	    			  System.out.println(Arrays.toString(line));
+	    			  NodeBilotto vert = new NodeBilotto();
+	    			  num = Integer.parseInt(line[2]);
+	    			  vert.ver = num;
+	    			  graph.enqueue(vert);
+	    			  verCount++;
+	    		  }
+	    		  else
+	    		  {
+	    			  System.out.println(Arrays.toString(line));
+	    			  
+	    			  source = Integer.parseInt(line[2]);
+	    			  dest = Integer.parseInt(line[4]);
+	    			  weight = Integer.parseInt(line[5]);
+	    			  
+
+	    			  //NodeBilotto srcNode = graph.search(source);
+	    			  //NodeBilotto destNode = graph.search(dest);
+	    			  
+	    			  
+	    			  //Edge edge = new Edge(destNode, weight);
+	    			  
+	    			  //srcNode.edge.add(edge);
+	    			  edgeCount++;
+	    			  
+	    		  }
+	    	  } 
+	    	  
+	    	  
+	    	  
+	      }//while
+	     
+	      
+	   
+	      input.close();
+	      keyboard.close();
+	    }//try
+	    
+	    catch(Exception ex)
+	    {
+	      System.out.println("Oops, something went wrong!");
+	    }//catch
+	    
+	    //this sends back a message if something goes wrong in importing the text into the array from magic items
+
+	  }//main
+	
+
+}//Compute
+
+
+
+
+\end{lstlisting}
+
+
+\section{SSP class}
+This is the Single Source Shortest Path class and it should be correct but I haven't actually successfully gotten it to run yet. What this class does is calculates the path dynamically. So it first off takes the source and sets it to 0 and makes everything else infinity (or in this case the max integer because I don't think java has infinity) then by passing it the directed graph along with the source node and the number of vertexes. it will loop that many times minus one and find the shortest path, speaking of which that is the job of the relax method. To calculate the distance and the bellman method just does the work and drives it. 
+\begin{lstlisting}[language = java]
+import java.util.ArrayList;
+
+public class SSP {
+	public void initSS(QueueBilotto graph, NodeBilotto source, int verCount)
+	{
+		for (int i = 1; i < verCount; i++)
+		{
+			NodeBilotto vertex = graph.search(i); //come back to this
+			vertex.distance = Integer.MAX_VALUE;
+			vertex.prevVertex = null;
+			source.distance = 0;
+		}
+	}//init
+	
+	public void bellman(QueueBilotto graph, NodeBilotto sour, int verCount, int edgeCount)
+	{
+		this.initSS(graph, sour, verCount);
+		
+		NodeBilotto source = sour;
+		NodeBilotto destination = sour;
+		
+		
+		for (int i = 0; i < (verCount - 1); i++)
+		{
+			for (int k = 1; k < verCount; k++)
+			{	
+				source = graph.search(k);//come back to this
+				System.out.println(source.getData());
+				
+				for (int j = 0; j < source.edge.size(); j++)
+				{
+					destination = source.edge.get(j).getDest();
+					int weight = source.edge.get(j).getWeight();
+					
+					this.relax(graph, source, destination, weight);
+				}
+			}
+		}
+		
+		
+	}
+	
+	public boolean relax(QueueBilotto graph, NodeBilotto start, NodeBilotto end, int weight)
+	{
+		
+		if (end.distance > start.distance + weight)
+		{
+			end.distance = start.distance + weight;
+			end.prevVertex = start;
+			return false;
+			
+		}
+		
+		return true;
+	}
+	
+	
+	public void print (QueueBilotto graph, NodeBilotto sourceVert, int verCount)
+	{
+		NodeBilotto dest = null;
+		int cost = 0;
+		
+		for (int g = (sourceVert.ver + 1); g < verCount; g++)
+		{
+			dest = graph.search(g);
+			cost = dest.distance;
+			System.out.print(sourceVert.getData() + " -> " + (g) + " cost is " + cost + "; path is " + sourceVert.getData());
+			
+			NodeBilotto tempDest = dest;
+			ArrayList<NodeBilotto> tempArray = new ArrayList<>();
+			while(tempDest.prevVertex != null) {
+				tempArray.add(tempDest);
+				tempDest = tempDest.prevVertex;
+			}//end while
+			
+			for(int p = tempArray.size()-1; p > -1; p--) {
+				System.out.print(" -> " + tempArray.get(p).getData());
+			}//end for p
+			System.out.print(".");
+			System.out.println();
+		}
+	}
+}
+
+
+
+\end{lstlisting}
+
+\section{Edge class}
+This is the Edge Class. Pretty straight forward if I do say so myself. Basically an edge has 3 things. A node that tells it the source, another node that tells it the destination, and a int that tells it the weight.
+\begin{lstlisting}[language = java]
+
+public class Edge {
+	
+	NodeBilotto mySource;
+	NodeBilotto myDest;
+	int myWeight;
+	
+	
+	public Edge(NodeBilotto dest, int weight)
+	{
+		myDest = dest;
+		myWeight = weight;
+	}
+	
+	 
+
+	public void setSource(NodeBilotto newSource)
+	{
+		mySource = newSource;
+	}
+	
+	public void setDest(NodeBilotto newDest)
+	{
+		myDest = newDest;
+	}
+	
+	public void setweight(int newWeight)
+	{
+		myWeight = newWeight;
+	}
+	
+	
+	public NodeBilotto getSource()
+	{
+		return mySource;
+	}
+	
+	public NodeBilotto getDest()
+	{
+		return myDest;
+	}
+	
+	public int getWeight()
+	{
+		return myWeight;
+	}
+	
+
+}//edge
+
+\end{lstlisting}
+
+\section{Node class}
+This is the Node class and quite a bit has changed. For starters it has some new variables like a array list of edges, a previous vertex, distance and an id called ver (line 12). Basically this is the same Node class we all know and love with a few more bells and whistles.
+\begin{lstlisting}[language = java]
+
+import java.util.ArrayList;
+
+public class NodeBilotto 
+{
+	public NodeBilotto myData;
+	public NodeBilotto myNext;
+	public NodeBilotto prev;
+	int distance;
+	NodeBilotto prevVertex;
+	ArrayList<Edge> edge = new ArrayList<Edge>();
+	public int ver;
+	
+	public NodeBilotto ()
+	{
+		myData = null;
+		myNext = null;
+		prev = null;
+	}//NodeBilotto
+	
+	public NodeBilotto (NodeBilotto newData)
+	{
+		myData = newData;
+		myNext = null;
+	}//NodeBilotto
+	
+	public NodeBilotto getData()
+	{
+		return myData;
+	}//getData
+	
+	public void setData (NodeBilotto newData)
+	{
+		myData = newData;
+	}//setData
+	
+	public NodeBilotto getNext()
+	{
+		return myNext;
+	}//getNext
+	
+	public void setNext(NodeBilotto newNext)
+	{
+		myNext = newNext;
+	}//setNext
+	
+	
+	
+
+	
+}//node
+
+
+\end{lstlisting}
+
+\section{Queue class}
+This is the Queue Class or AKA the linked list class. Originally I had a class called "Graph" but i scrapped it because I have this and it's better. So things that were added are things like the serach method. I use this to pair the vertices read in by the file to the nodes in this list. I also changed some parameters to accept nodes and such. 
+\begin{lstlisting}[language = java]
+
+
+public class QueueBilotto {
+	
+	public NodeBilotto head;
+	
+	private NodeBilotto tail;
+	
+	public QueueBilotto()
+	{
+		head = null;
+		tail = null;
+	}//Queue
+	
+	public boolean isEmpty()
+	{
+		return (head == null);
+	}//is empty
+	
+	
+	public void enqueue(NodeBilotto item)
+	{
+		NodeBilotto oldTail = tail;
+		tail = new NodeBilotto();
+		tail.setData(item);
+		tail.setNext(null);
+		if (isEmpty())
+		{
+			head = tail;
+		}//if
+		else
+		{
+			oldTail.setNext(tail);
+		}//else
+		
+	}//enqueue
+	
+	
+	public NodeBilotto dequeue()
+	{
+		NodeBilotto item = null;
+		if (!isEmpty())
+		{
+			item = head.getData();
+			head = head.getNext();
+		}//if
+		
+		return item;
+	}//dequeue
+	
+	
+	public NodeBilotto search(int num)
+	{
+		NodeBilotto curr = this.head;
+		while (curr != null && curr.ver != num)
+		{
+			curr = curr.getNext();
+		}
+		
+		return curr;
+	}
+
+}//queue
+
+
+
+\end{lstlisting}
+
+\section{Spice class}
+This is the Spice Class. The Spices have a name, a price, a quantity, and a unit price. As of now I'm not sure if making the unit price a array list was a good idea but I did that so that I could use my selection sort to sort the spices by the unit price (see lines 240 in compute class). Overall I spent the majority of my time on SSSP and didn't get to think this one out as much which honestly sucks because greedy algorithms seem really interesting. 
+\begin{lstlisting}[language = java]
+
+import java.util.ArrayList;
+
+public class Spice {
+	String name;
+	int price;
+	int qty;
+	ArrayList<Integer> unitPrice = new ArrayList<Integer>();
+
+}
+
+
+\end{lstlisting}
+
+\section{Overall Thoughts}
+Overall this project in my opinion was better than the last one. But I wasn't able to get everything to work. I feel like I'm very, very close to SSSP working. I personally think I'm one or two bugs off from it working. I will personally work on fixing it and if allowed will re-push my solution to the github. If you are reading this on the 11th, there is probably a 90 percent chance I am debugging as you read this. Regardless I thought it would be best to submit what I have. But will resubmit if allowed to by you.
+
+\end{document}
