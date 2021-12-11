@@ -98,7 +98,7 @@
 % - -- -  - -- -  - -- -  -
 
 \section{Compute Class}
-He is the main class, and I should probably mention it here that it does not work. But nonethe less I will go through it. Unlike last project I go the read a file to work (yay!) but this time I can't seem to get the algorithm right. See I have read the file in and everything works right up until I try to add the edge to the list. but beyond that everything seems to be working. I have a linkedlist/graph that contains my nodes/vertices and each node has a array list of edges. After this though we have the spice stuff which is also not working. 
+He is the main class, and I should probably mention it here that it does not work. But nonethe less I will go through it. Unlike last project I go the read a file to work (yay!) but this time I can't seem to get the algorithm right. See I have read the file in and everything works right up until I try to add the edge to the list. but beyond that everything seems to be working. I have a linkedlist/graph that contains my nodes/vertices and each node has a array list of edges. After this though we have the spice stuff which is also not working. But the basic idea is that I'm splitting on spaces (could split on ; and then space) and then populate a array list for the spices. And then execute the greedy algorithm. I spelt too much time (basically all of it) on the SSSP algorithm that I really didn't have much to work out the spices which as I mention later in the document sucks because I am honestly interested in greedy algorithms. Point being the algorithm would take the scoops fractionally down the sorted list of unit prices until the capacity is met. 
 
 Some things to note is that while I'm only reading in one graph, the code is use able to add more graphs in I just did it that way to test the code when working.
 
@@ -728,6 +728,9 @@ public class Spice {
 \end{lstlisting}
 
 \section{Overall Thoughts}
-Overall this project in my opinion was better than the last one. But I wasn't able to get everything to work. I feel like I'm very, very close to SSSP working. I personally think I'm one or two bugs off from it working. I will personally work on fixing it and if allowed will re-push my solution to the github. If you are reading this on the 11th, there is probably a 90 percent chance I am debugging as you read this. Regardless I thought it would be best to submit what I have. But will resubmit if allowed to by you.
+The complexity of SSSP is big O of (number of vertices and number of edges) or O(VE) Because of the initialization of O(V) and then loops O(E) times. And the greedy algorithm has a complexity of O(nlogn) if you use quick sort. The loop itself should take O(N) so then it's really the compleity of the sort you use. So since I was using selection sort it should be O(n to the 2).
+
+
+Overall this project in my opinion was better than the last one. But I wasn't able to get everything to work. I feel like I'm very, very close to SSSP working. I personally think I'm one or two bugs off from it working. I will personally work on fixing it (both SSSP and the spices) and if allowed will re-push my solution to the github. If you are reading this on the 11th, there is probably a 90 percent chance I am debugging as you read this. Regardless I thought it would be best to submit what I have. But will repush if allowed to by you.
 
 \end{document}
