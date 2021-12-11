@@ -25,7 +25,7 @@ public class Compute {
 	    NodeBilotto edgeNode = new NodeBilotto();
 	    SSP path = new SSP();
 
-	   /* 
+	   
 	    try
 	    { 
 	      fileName = "test.txt";
@@ -100,7 +100,8 @@ public class Compute {
 	    
 	    //this sends back a message if something goes wrong in importing the text into the array from magic items
 	    
-	    */
+	  
+	    /*
 	    try
 	    { 
 	      fileName = "spice.txt";
@@ -161,7 +162,7 @@ public class Compute {
 	    
 	    
 	    
-	    
+	    */
 	    
 	    //Prints out the graph!! (well at least the vertices!)
 	    
