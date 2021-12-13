@@ -3,7 +3,6 @@ import java.util.Scanner;
 import java.util.ArrayList;
 //import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class Compute {
 	// Create a new keyboard Scanner object.
@@ -26,8 +25,9 @@ public class Compute {
 	    NodeBilotto edgeNode = new NodeBilotto();
 	    SSP path = new SSP();
 	    NodeBilotto firstVer = new NodeBilotto();
-	    ArrayList<Spice> spices = new ArrayList<Spice>();
+	    //ArrayList<Spice> spices = new ArrayList<Spice>();
 	    ArrayList <Knapsack> knapsack = new ArrayList<Knapsack>();
+	    Spice spice = new Spice();
 
 	   
 	    try
@@ -107,7 +107,7 @@ public class Compute {
 	    
 	    //this sends back a message if something goes wrong in importing the text into the array from magic items
 	    
-	  /*
+	  
 	    
 	    try
 	    { 
@@ -121,28 +121,28 @@ public class Compute {
 	      
 	      while(input.hasNext())
 	      {
-	    	  line = input.nextLine().replaceAll("\\s+", " ").split(";");
-	    	  line2 = line[0].split(" ");
+	    	  line = input.nextLine().replaceAll("\\s+", " ").split(" ");
 	    	  
-	    	  System.out.println(Arrays.toString(line2));
+	    	  //System.out.println(Arrays.toString(line));
+	    	  
 	    	  int price;
 	    	  int qty;
 	    	  
 	    	  if (line[0].equalsIgnoreCase("spice"))
 	    	  {
 	    		  
-	    		  Spice spice = new Spice();
+	    		  
 	    		  
 	    		  spice.name = line[3];
-	    		  
 	    		  price = Integer.parseInt(line[6]);
+	    		  
 
 	    		  qty = Integer.parseInt(line[9]);
 	    		  spice.price = price;
 	    		  spice.qty = qty;
 	    		  
 	    		  spice.unitPrice = (price/qty);
-	    		  spices.add(spice);
+	    		  spice.listSpice.add(spice);
 	    		  
 	    	  }
 	    	  
@@ -156,10 +156,6 @@ public class Compute {
 	    	  }
 	    	  
 	    	  
-	    	  for (int c = 0; c < spices.size(); c++)
-	    	  {
-	    		  System.out.println(spices.get(c));
-	    	  }
 	    	  
 	      }//while
 	     
@@ -174,8 +170,16 @@ public class Compute {
 	      System.out.println("Oops, something went wrong!");
 	    }//catch
 	    
-	    */
-	    
+	   
+	    for (int c = 0; c < knapsack.size(); c++)
+	    {
+	    	int quantaloos = 0;
+	    	int size = 0;
+	    	while (size < knapsack.get(c).qty)
+	    	{
+	    	}
+	    	
+	    }
 	    
 	    
 	    //Prints out the graph!! (well at least the vertices!)
@@ -199,8 +203,8 @@ public class Compute {
 	    
 	  //System.out.println(firstVer.getData());
 	  //path.initSS(graph, firstVer, verCount);
-	  path.bellman(graph, firstVer, verCount, edgeCount);
-	  path.print(graph, firstVer, verCount);
+	  //path.bellman(graph, firstVer, verCount, edgeCount);
+	  //path.print(graph, firstVer, verCount);
 	  //print is looping
 	    
 	    /*  

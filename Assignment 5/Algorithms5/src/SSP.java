@@ -68,11 +68,13 @@ public class SSP {
 	}
 	
 	
+	
 	public void print (QueueBilotto graph, NodeBilotto sourceVert, int verCount)
 	{
 		NodeBilotto dest = null;
 		int cost = 0;
 		
+		/*
 		for (int g = (sourceVert.getData()); g < verCount; g++)
 		{
 			dest = graph.search(g);
@@ -90,7 +92,18 @@ public class SSP {
 				System.out.print(" -> " + tempArray.get(p).getData());
 			}
 			System.out.print(".");
-			System.out.println();
+			System.out.println(); 
+			
 		}
+			 
+		*/
+		
+		for (int i = 1; i < verCount + 1; i++)
+		{
+			System.out.println(i + "\t\t" + sourceVert.getData());
+		}
+		
 	}
+	
+	
 }
