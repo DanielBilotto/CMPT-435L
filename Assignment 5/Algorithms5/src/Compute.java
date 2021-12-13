@@ -15,6 +15,7 @@ public class Compute {
 		String fileName = null;
 	    String[] line = null;
 	    String[] line2 = null;
+
 	    int num;
 	    int source;
 	    int dest;
@@ -24,6 +25,9 @@ public class Compute {
 	    int edgeCount = 0;
 	    NodeBilotto edgeNode = new NodeBilotto();
 	    SSP path = new SSP();
+	    NodeBilotto firstVer = new NodeBilotto();
+	    ArrayList<Spice> spices = new ArrayList<Spice>();
+	    ArrayList <Knapsack> knapsack = new ArrayList<Knapsack>();
 
 	   
 	    try
@@ -43,7 +47,7 @@ public class Compute {
 	    	  
 	    	  if (line[0].equalsIgnoreCase("new"))
 	    	  {
-	    		  System.out.println(Arrays.toString(line));
+	    		  //System.out.println(Arrays.toString(line));
 	    		  graph = new QueueBilotto();
 	    		  verCount = 0;
 	    		  edgeCount = 0;
@@ -55,29 +59,32 @@ public class Compute {
 	    	  {
 	    		  if (line[1].substring(0,1).equalsIgnoreCase("v"))
 	    		  {
-	    			  System.out.println(Arrays.toString(line));
-	    			  NodeBilotto vert = new NodeBilotto();
+	    			  //System.out.println(Arrays.toString(line));
 	    			  num = Integer.parseInt(line[2]);
-	    			  vert.ver = num;
-	    			  graph.enqueue(vert);
+	    			 
+	    			  if (graph.isEmpty())
+	    			  {
+	    				  firstVer.setData(num);
+	    			  }
+	    			  graph.enqueue(num);
 	    			  verCount++;
 	    		  }
 	    		  else
 	    		  {
-	    			  System.out.println(Arrays.toString(line));
+	    			  //System.out.println(Arrays.toString(line));
 	    			  
 	    			  source = Integer.parseInt(line[2]);
 	    			  dest = Integer.parseInt(line[4]);
 	    			  weight = Integer.parseInt(line[5]);
 	    			  
-
-	    			  //NodeBilotto srcNode = graph.search(source);
-	    			  //NodeBilotto destNode = graph.search(dest);
+	    			  NodeBilotto srcNode = graph.search(source);
+	    			  NodeBilotto destNode = graph.search(dest);
+	    			  
+	    			  Edge edge = new Edge(srcNode, destNode, weight);
+	    			  
+	    			  firstVer.edge.add(edge);
 	    			  
 	    			  
-	    			  //Edge edge = new Edge(destNode, weight);
-	    			  
-	    			  //srcNode.edge.add(edge);
 	    			  edgeCount++;
 	    			  
 	    		  }
@@ -100,8 +107,8 @@ public class Compute {
 	    
 	    //this sends back a message if something goes wrong in importing the text into the array from magic items
 	    
-	  
-	    /*
+	  /*
+	    
 	    try
 	    { 
 	      fileName = "spice.txt";
@@ -114,38 +121,45 @@ public class Compute {
 	      
 	      while(input.hasNext())
 	      {
-	    	  line = input.nextLine().replaceAll("\\s+", " ").split(" ");
-	    	  System.out.println(Arrays.toString(line));
+	    	  line = input.nextLine().replaceAll("\\s+", " ").split(";");
+	    	  line2 = line[0].split(" ");
+	    	  
+	    	  System.out.println(Arrays.toString(line2));
 	    	  int price;
 	    	  int qty;
 	    	  
 	    	  if (line[0].equalsIgnoreCase("spice"))
 	    	  {
-	    		  ArrayList<Spice> spices = new ArrayList<Spice>();
+	    		  
 	    		  Spice spice = new Spice();
+	    		  
 	    		  spice.name = line[3];
+	    		  
 	    		  price = Integer.parseInt(line[6]);
+
 	    		  qty = Integer.parseInt(line[9]);
 	    		  spice.price = price;
 	    		  spice.qty = qty;
-	    		  spice.unitPrice.add(price/qty);
+	    		  
+	    		  spice.unitPrice = (price/qty);
 	    		  spices.add(spice);
-	    		  selectSort(spice.unitPrice);
 	    		  
 	    	  }
 	    	  
 	    	  else if (line[0].equalsIgnoreCase("knapsack"))
 	    	  {
-	    		 int scoops = 0;
+	    		
+	    		 Knapsack sack = new Knapsack();
 	    		 int capacity = Integer.parseInt(line[3]);
-	    		 
-	    		 if (capacity > 0)
-	    		 {
-	    			 
-	    		 }
-	    		  
+	    		 sack.qty = capacity;
+	    		 knapsack.add(sack);
 	    	  }
 	    	  
+	    	  
+	    	  for (int c = 0; c < spices.size(); c++)
+	    	  {
+	    		  System.out.println(spices.get(c));
+	    	  }
 	    	  
 	      }//while
 	     
@@ -160,9 +174,9 @@ public class Compute {
 	      System.out.println("Oops, something went wrong!");
 	    }//catch
 	    
-	    
-	    
 	    */
+	    
+	    
 	    
 	    //Prints out the graph!! (well at least the vertices!)
 	    
@@ -183,27 +197,26 @@ public class Compute {
 	    System.out.println();
 	    */
 	    
+	  //System.out.println(firstVer.getData());
+	  //path.initSS(graph, firstVer, verCount);
+	  path.bellman(graph, firstVer, verCount, edgeCount);
+	  path.print(graph, firstVer, verCount);
+	  
+	    
+	    /*  
+	 for (int f = 0; f < 10; f++)
+	 {
+		 System.out.println(firstVer.edge.get(f).getSource().getData()); 
+		 System.out.println(firstVer.edge.get(f).getDest().getData());  
+		 System.out.println(firstVer.edge.get(f).getWeight());
+	 }
+	 */
+	
+	    //System.out.println(firstVer.edge.size());
 	    
 	  }//main
 	
 	
-	public static void selectSort(ArrayList<Integer> items)
-	  {
-		  for (int i = 0; i < items.size(); i++)
-		  {
-			  int smallPos = i;
-			  for (int j = i; j < items.size(); j++)
-			  {
-				  if (items.get(j) < items.get(smallPos))
-				  {
-					  smallPos = j;
-				  }
-			  }
-			  int swap = items.get(smallPos);
-			  items.set(smallPos, items.get(i));
-			  items.set(i, swap);
-		  }
-
-	  }//SS
+	
 
 }//Compute

@@ -17,7 +17,7 @@ public class QueueBilotto {
 	}//is empty
 	
 	
-	public void enqueue(NodeBilotto item)
+	public void enqueue(int item)
 	{
 		NodeBilotto oldTail = tail;
 		tail = new NodeBilotto();
@@ -35,9 +35,9 @@ public class QueueBilotto {
 	}//enqueue
 	
 	
-	public NodeBilotto dequeue()
+	public int dequeue()
 	{
-		NodeBilotto item = null;
+		int item = 0;
 		if (!isEmpty())
 		{
 			item = head.getData();
@@ -51,7 +51,7 @@ public class QueueBilotto {
 	public NodeBilotto search(int num)
 	{
 		NodeBilotto curr = this.head;
-		while (curr != null && curr.ver != num)
+		while (curr != null && curr.getData() != num)
 		{
 			curr = curr.getNext();
 		}

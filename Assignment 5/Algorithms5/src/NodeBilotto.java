@@ -2,33 +2,32 @@ import java.util.ArrayList;
 
 public class NodeBilotto 
 {
-	public NodeBilotto myData;
+	public int myData;
 	public NodeBilotto myNext;
 	public NodeBilotto prev;
 	int distance;
 	NodeBilotto prevVertex;
 	ArrayList<Edge> edge = new ArrayList<Edge>();
-	public int ver;
 	
 	public NodeBilotto ()
 	{
-		myData = null;
+		myData = 0;
 		myNext = null;
 		prev = null;
 	}//NodeBilotto
 	
-	public NodeBilotto (NodeBilotto newData)
+	public NodeBilotto (int newData)
 	{
 		myData = newData;
 		myNext = null;
 	}//NodeBilotto
 	
-	public NodeBilotto getData()
+	public int getData()
 	{
 		return myData;
 	}//getData
 	
-	public void setData (NodeBilotto newData)
+	public void setData (int newData)
 	{
 		myData = newData;
 	}//setData
@@ -42,6 +41,8 @@ public class NodeBilotto
 	{
 		myNext = newNext;
 	}//setNext
+	
+	
 	
 	
 	

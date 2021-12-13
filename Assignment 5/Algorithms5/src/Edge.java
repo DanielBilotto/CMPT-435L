@@ -6,8 +6,9 @@ public class Edge {
 	int myWeight;
 	
 	
-	public Edge(NodeBilotto dest, int weight)
+	public Edge(NodeBilotto source, NodeBilotto dest, int weight)
 	{
+		mySource = source;
 		myDest = dest;
 		myWeight = weight;
 	}
