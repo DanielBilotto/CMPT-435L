@@ -1,6 +1,12 @@
 import java.util.ArrayList;
 
 public class SSP {
+	
+	
+	NodeBilotto source = new NodeBilotto();
+	NodeBilotto destination = new NodeBilotto();
+	int weight;
+	
 	public void initSS(QueueBilotto graph, NodeBilotto source, int verCount)
 	{
 		NodeBilotto vertex = new NodeBilotto();
@@ -9,13 +15,13 @@ public class SSP {
 			vertex = graph.search(i); //come back to this, i think this is correct now
 			vertex.distance = Integer.MAX_VALUE;
 			vertex.prevVertex = null;
-			//System.out.println(vertex.getData());
+			System.out.println(vertex.getData());
 		}
 		vertex = graph.search(1);
 		vertex.distance = 0;
 	}//init
 	
-	public void bellman(QueueBilotto graph, NodeBilotto sour, int verCount, int edgeCount)
+	public boolean bellman(QueueBilotto graph, NodeBilotto sour, int verCount, int edgeCount)
 	//this is broken!!! why is edge.size 0?
 	{
 		this.initSS(graph, sour, verCount);
@@ -26,23 +32,30 @@ public class SSP {
 			for (int k = 0; k < edgeCount; k++)
 			{	
 				
-				NodeBilotto source = sour.edge.get(k).getSource();
-				NodeBilotto destination = sour.edge.get(k).getDest();
-				int weight = sour.edge.get(k).getWeight();
-				//source = graph.search(k + 1);//come back to this, this is setting it to 0
-				//System.out.println(source.getData());
-				for (int j = 0; j < sour.edge.size(); j++)
+				source = sour.edge.get(k).getSource();
+				destination = sour.edge.get(k).getDest();
+				weight = sour.edge.get(k).getWeight();
+				this.relax(graph, source, destination, weight);
+				
+			}
+			
+			for (int j = 0; j < edgeCount; j++)
+			{
+				if (destination.distance > source.distance + weight)
 				{
-					//System.out.println("hi");
-					this.relax(graph, source, destination, weight);
+					return false;
 				}
 			}
+			
+			
+			
 		}
 		
+		return true;	
 		
 	}
 	
-	public boolean relax(QueueBilotto graph, NodeBilotto start, NodeBilotto end, int weight)
+	public void relax(QueueBilotto graph, NodeBilotto start, NodeBilotto end, int weight)
 	{
 		
 		if (end.distance > start.distance + weight)
@@ -50,11 +63,8 @@ public class SSP {
 			end.distance = start.distance + weight;
 			//System.out.println(end.distance); //is changing both more and less
 			end.prevVertex = start;
-			return false;
-			
 		}
 		
-		return true;
 	}
 	
 	
@@ -63,7 +73,7 @@ public class SSP {
 		NodeBilotto dest = null;
 		int cost = 0;
 		
-		for (int g = (sourceVert.getData() + 1); g < verCount; g++)
+		for (int g = (sourceVert.getData()); g < verCount; g++)
 		{
 			dest = graph.search(g);
 			cost = dest.distance;

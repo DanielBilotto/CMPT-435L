@@ -201,7 +201,7 @@ public class Compute {
 	  //path.initSS(graph, firstVer, verCount);
 	  path.bellman(graph, firstVer, verCount, edgeCount);
 	  path.print(graph, firstVer, verCount);
-	  
+	  //print is looping
 	    
 	    /*  
 	 for (int f = 0; f < 10; f++)
