@@ -137,6 +137,7 @@ public class Main {
 		System.out.println("Case 2: 125 × 0.1496 = 18.70 instances requiring 131 tests");
 		System.out.println("Case 3: 125 × 0.0004 = 0.05 round up to 1 instance requiring 11 tests");
 		System.out.println("That's 249 tests to screen a population of 1000 people for a disease with an infection rate of 2%.");
+		System.out.println();
 		System.out.println("Actual:");
 		System.out.println("Case 1: " + size/8 + " x " + onePer + " = " + ((size/3) * (onePer)) + " instances requiring " + caseOne + " tests (since there are no partial tests)");
 		System.out.println("Case 2: " + size/8 + " x " + twoPer + " = " + ((size/3) * (twoPer)) + " instances requiring " + caseTwo + " tests");

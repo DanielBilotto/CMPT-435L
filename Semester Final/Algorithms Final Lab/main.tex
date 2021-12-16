@@ -1,0 +1,283 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% CMPT 435
+% Lab Final
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from: http://www.LaTeXTemplates.com
+% Original author: % Frits Wenneker (http://www.howtotex.com)
+% License: CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% Modified by Daniel Bilotto
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[letterpaper, 10pt]{article} 
+
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{graphicx}
+\usepackage[lined,linesnumbered,commentsnumbered]{algorithm2e}
+\usepackage{listings}
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\usepackage{lastpage}
+\usepackage{url}
+
+\usepackage{xcolor}
+
+
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{page \thepage\ of \pageref{LastPage}} % Page numbering for center footer
+\fancyfoot[R]{}
+
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\lstdefinestyle{mystyle}{
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=false,                  
+  tabsize=2
+}
+
+%"mystyle" code listing set
+\lstset{style=mystyle}
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	
+   \normalfont \normalsize 
+   \textsc{CMPT 435 - Fall 2021 - Daniel Bilotto} \\[10pt] % Header stuff.
+   \horrule{0.5pt} \\[0.25cm] 	% Top horizontal rule
+   \huge Semester Final -- \LaTeX ~Sorts \\     	    % Assignment title
+   \horrule{0.5pt} \\[0.25cm] 	% Bottom horizontal rule
+}
+
+\author{Daniel Bilotto \\ \normalsize danielbilotto1@marist.edu}
+
+\date{\normalsize\today} 	% Today's date.
+
+
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%   CONTENT SECTION
+%----------------------------------------------------------------------------------------
+
+% - -- -  - -- -  - -- -  -
+
+\section{Main class}
+This is the one and only class that does the work. Let me run you through it; so we start off with a size that we want in this case 1000 (line 10), then we set the infection rate (line 12). Then we set up our main array called pool. We also set up some other variables that we will get to later. \par
+
+So lines 24 - 33, is setting up the array with the population and infection rate, the way I decided to do that was to turn the first 2 percent into "true" which in my case is infected. And then shuffle the array. \par
+
+Then at line 46 I split the main pool into a group of 8 by making a temp array called "test" and populate it with the 8 people in the main pool. At line 64 I see if the group of 8 has a infected person, if they do then I know i need at least 3 tests so I add 3 tests to the count. Then I split that group of 8 into two groups of 4 and then I test those 2 and see if they have a infected person and if they do I will add 4 to the test count. If there is no infected person in the group of 8 then I will instead add one test to the count as seen in line 121. Also in this chunk of code I will see how many tests are done based on what case it is as well.\par
+
+The only thing left is the output which prints out the sample that was given as the expected and then the actual with my data.\par
+\begin{lstlisting}[language = java]
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
+public class Main {
+
+	public static void main(String[] args) {
+		int size = 1000;
+		double theSize = size;
+		double infectSize = size * .02;
+		boolean[] pool = new boolean[size];
+		int testNums = 0;
+		int count = 0;
+		double caseOne = 0;
+		double caseTwo = 0;
+		double caseThree = 0;
+		double onePer = 0;
+		double twoPer = 0;
+		double threePer = 0;
+		
+		
+		for (int i = 0; i < size; i++)
+		{
+			pool[i] = false;
+		}
+		
+		
+		for (int k = 0; k < infectSize; k++)
+		{
+			pool[k] = true;
+		}
+		
+		shuffle(pool);
+		
+		/*
+		for (int j = 0; j < pool.length; j++)
+		{
+			System.out.println(pool[j]);
+		}
+		*/
+		
+		
+		
+		for (int e = 0; e < size/8; e++)
+		{
+			Boolean[] test = new Boolean[8];
+			
+			
+			for (int g = 0; g < 8; g++)
+			{
+				
+				//System.out.println(count);
+				test[g] = pool[count];
+				count++;
+				//System.out.println(test[g]);
+			}
+			
+			//System.out.println("hi");
+			
+			List<Boolean> boolTest = new ArrayList<Boolean>(Arrays.asList(test));
+			
+			if (boolTest.contains(true))
+			{
+				int pop = 0;
+				Boolean[] one = new Boolean[4];
+				Boolean[] two = new Boolean[4];
+				for (int t = 0; t < 3; t++)
+					testNums++;
+
+				
+				for (int b = 0; b < 4; b++)
+				{
+					one[b] = test[pop];
+					two[b] = test[pop + 4];
+					
+					//System.out.println(Arrays.toString(one));
+					//System.out.println(Arrays.toString(two));
+					//System.out.println("hi2");
+					pop++;
+					
+					
+				}
+				
+				List<Boolean> testOne = new ArrayList<Boolean>(Arrays.asList(one));
+				List<Boolean> testTwo = new ArrayList<Boolean>(Arrays.asList(two));
+				
+				if (testOne.contains(true))
+				{
+					for (int o = 0; o < 4; o++)
+					{
+						testNums++;
+						caseTwo++;
+						//System.out.println("hi2");
+					}
+						
+					
+				}
+				
+				if (testTwo.contains(true))
+				{
+					for (int t = 0; t < 4; t++)
+					{
+						testNums++;
+						caseTwo++;
+						//System.out.println("hi3");
+					}
+				}
+				
+				if (testOne.contains(true) && testTwo.contains(true))
+				{
+					for (int t = 0; t < 4; t++)
+					{
+						caseThree++;
+					}
+				}
+				
+			}//if
+			
+			else
+			{
+				testNums++;
+				caseOne++;
+				//System.out.println("hi4");
+				
+			}
+			
+			
+			
+		}
+		onePer = caseOne/theSize;
+		twoPer = caseTwo/theSize;
+		threePer = caseThree/theSize;
+		
+		System.out.println("Expected:");
+		System.out.println("Case 1: 125 x 0.8500 = 106.25 instances requiring 107 tests (since there are no partial tests)");
+		System.out.println("Case 2: 125 × 0.1496 = 18.70 instances requiring 131 tests");
+		System.out.println("Case 3: 125 × 0.0004 = 0.05 round up to 1 instance requiring 11 tests");
+		System.out.println("That's 249 tests to screen a population of 1000 people for a disease with an infection rate of 2%.");
+		System.out.println("Actual:");
+		System.out.println("Case 1: " + size/8 + " x " + onePer + " = " + ((size/3) * (onePer)) + " instances requiring " + caseOne + " tests (since there are no partial tests)");
+		System.out.println("Case 2: " + size/8 + " x " + twoPer + " = " + ((size/3) * (twoPer)) + " instances requiring " + caseTwo + " tests");
+		System.out.println("Case 3: " + size/8 + " x " + threePer + " = " + ((size/3) * (threePer)) + " instances requiring " + caseThree + " tests");
+		System.out.println("That's " + testNums + " tests to screen a population of " + size + " people for a disease with an infection rate of 2%.");
+	}//main
+	
+	
+	static boolean[] shuffle(boolean[] array)
+	{
+		Random random = new Random();
+		for (int i = 0; i < array.length; i++)
+		{
+			int randInt = random.nextInt(array.length);
+			boolean temp = array[randInt];
+			array[randInt] = array[i];
+			array[i] = temp;
+		}
+		
+		return array;
+	}//shuffle
+
+}
+
+
+\end{lstlisting}
+
+\section{Results}
+So let's talk results! For a size of 1000, my tests were right in line of the sample data. And with 10,000 they are similar to 1000 if you added a extra digit. As for100,000 to one million I can't really tell a difference in the data as the percentages are similar to the sample but maybe that's because I'm tired and need to look at it with new eyes. \par
+
+After some research, while both hypergeometric distributions and binomial distributions tell the number of times an event happens in a fixed number of trials. I found that the difference between hypergeometric distributions and binomial distributions is that binomial distribution's percentage stays the same while hypergeometric distributions has different percentages. So I can conclude that this project was closer and probably was  hypergeometric distribution. \par
+
+Lastly as for things that I could of done better with this project to make it more efficient. I think my run time is a bit long. I'm using the java built in .contains to see if the pool of 8 has a infect person which since I didn't make it means I don't know how long it takes as well as I don't know if it's the most efficient. And the other thing I could do is maybe use a test method instead of making main do it all. That would make the code cleaner and just slightly more professional but I don't think it would make the program that much more efficent. 
+
+\end{document}
